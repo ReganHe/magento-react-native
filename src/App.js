@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
@@ -16,7 +16,7 @@ const App = () => (
     <ThemeProvider theme={theme}>
       <PersistGate loading={<Spinner />} persistor={persistor}>
         <Navigator
-          ref={(navigatorRef) => {
+          ref={navigatorRef => {
             NavigationService.setTopLevelNavigator(navigatorRef);
           }}
         />

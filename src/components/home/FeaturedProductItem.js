@@ -19,26 +19,27 @@ const FeaturedProductItem = ({
   const [imageURI, setImageURI] = useState('');
   const price = useMemo(
     () => finalPrice(product.custom_attributes, product.price),
-    [product.custom_attributes, product.price]
+    [product.custom_attributes, product.price],
   );
+  useEffect(() => setImageURI(getProductThumbnailFromAttribute(product)), [
+    product,
+  ]);
   useEffect(
-    () => setImageURI(getProductThumbnailFromAttribute(product)),
-    [product]
-  );
-   useEffect(
-    () => setThemeStyle({
-      image: styles.imageStyle(theme),
-      text: styles.textStyle(theme),
-    }),
-    [theme]
+    () =>
+      setThemeStyle({
+        image: styles.imageStyle(theme),
+        text: styles.textStyle(theme),
+      }),
+    [theme],
   );
 
   return (
     <View style={styles.container(theme)}>
       <TouchableOpacity
         style={styles.containerStyle(theme)}
-        onPress={() => { onPress(product); }}
-      >
+        onPress={() => {
+          onPress(product);
+        }}>
         <FastImage
           style={themeStyles.image}
           resizeMode="contain"
@@ -49,8 +50,7 @@ const FeaturedProductItem = ({
             type="subheading"
             style={themeStyles.text}
             ellipsizeMode="tail"
-            numberOfLines={2}
-          >
+            numberOfLines={2}>
             {product.name}
           </Text>
           <Price

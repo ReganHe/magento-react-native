@@ -23,7 +23,7 @@ export const ReviewFormContainer = ({ product }) => {
     postReviewLoading,
     postReview,
     ratingOptions,
-    loading
+    loading,
   } = useProductReviewsForm({
     product,
     onSuccess: () => setSuccess(true),
@@ -31,26 +31,29 @@ export const ReviewFormContainer = ({ product }) => {
 
   useEffect(() => {
     setIconName(expanded ? 'angle-up' : 'angle-down');
-  }, [expanded])
+  }, [expanded]);
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Spinner />
       </View>
-    )
+    );
   }
 
   if (success) {
     return (
       <View style={styles.successContainer}>
         <Text style={styles.successTitle}>Review submited - Thank you!</Text>
-        <Text style={styles.successBody}>We are processing your review. This is may take several days, so we appriciate your patience.</Text>
+        <Text style={styles.successBody}>
+          We are processing your review. This is may take several days, so we
+          appriciate your patience.
+        </Text>
       </View>
-    )
+    );
   }
 
-  const submitReview = (data) => {
+  const submitReview = data => {
     const ratingData = ratingOptions.map(option => ({
       rating_id: option.rating_id,
       ratingCode: option.rating_code,
@@ -63,8 +66,10 @@ export const ReviewFormContainer = ({ product }) => {
       detail: data.detail,
       ratingData,
     };
-    postReview(review, (success) => {
-      if (success) reviewFormRefs.current.reset();
+    postReview(review, success => {
+      if (success) {
+        reviewFormRefs.current.reset();
+      }
     });
   };
 
@@ -72,30 +77,30 @@ export const ReviewFormContainer = ({ product }) => {
     <View style={styles.customerReviewsWrap}>
       <TouchableOpacity
         style={styles.expandHeaderRow}
-        onPress={() => { setExpanded(!expanded) }}
-      >
+        onPress={() => {
+          setExpanded(!expanded);
+        }}>
         <Row style={styles.expandHeaderWrap}>
-          <Text style={styles.customerReviewsTitle} bold>Write Your Own Review</Text>
-          <Icon name={iconName} type="font-awesome" color={'#737373'}/>
+          <Text style={styles.customerReviewsTitle} bold>
+            Write Your Own Review
+          </Text>
+          <Icon name={iconName} type="font-awesome" color={'#737373'} />
         </Row>
         <Spacer size={10} />
       </TouchableOpacity>
-      {
-        expanded
-        && (
-          <View>
-            <Spacer size={10} />
-            <ReviewForm
-              ref={reviewFormRef}
-              loading={postReviewLoading}
-              productName={product.name}
-              onMountRefs={refs => setReviewFormRefs(refs)}
-              onSubmit={submitReview}
-              ratingOptions={ratingOptions}
-            />
-          </View>
-        )
-      }
+      {expanded && (
+        <View>
+          <Spacer size={10} />
+          <ReviewForm
+            ref={reviewFormRef}
+            loading={postReviewLoading}
+            productName={product.name}
+            onMountRefs={refs => setReviewFormRefs(refs)}
+            onSubmit={submitReview}
+            ratingOptions={ratingOptions}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -105,7 +110,7 @@ const styles = StyleSheet.create({
     // marginLeft: Sizes.WINDOW_WIDTH * 0.05,
     marginTop: Sizes.WINDOW_WIDTH * 0.05,
     fontSize: 20,
-    margin: 10
+    margin: 10,
   },
   expandHeaderRow: {
     // borderBottomWidth: 1,
@@ -117,7 +122,7 @@ const styles = StyleSheet.create({
     width: Sizes.WINDOW_WIDTH * 0.9,
   },
   customerReviewsTitle: {
-    ...Typography.headingText
+    ...Typography.headingText,
   },
   successContainer: {
     marginHorizontal: Sizes.WINDOW_WIDTH * 0.05,
@@ -131,4 +136,4 @@ const styles = StyleSheet.create({
   successBody: {
     fontSize: 15,
   },
-})
+});

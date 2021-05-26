@@ -1,10 +1,9 @@
 /**
  * Created by Dima Portenko on 14.05.2020
  */
-import React from 'react';
 import { useSelector } from 'react-redux';
 
-export const useCurrency = (props) => {
+export const useCurrency = props => {
   const { currencyRate, currencySymbol } = useSelector(state => {
     const {
       currency: {
