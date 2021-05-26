@@ -8,11 +8,7 @@ storiesOf('Price', module)
     <ThemeProvider theme={theme}>{getStory()}</ThemeProvider>
   ))
   .add('with basePrice', () => (
-    <Price
-      basePrice={300}
-      currencySymbol="$"
-      currencyRate={1}
-    />
+    <Price basePrice={300} currencySymbol="$" currencyRate={1} />
   ))
   .add('with discountPrice', () => (
     <Price
