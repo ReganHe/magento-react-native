@@ -15,7 +15,7 @@ import Typography from '../../../theme/typography';
 export const ProductReviews = ({ product }) => {
   const [expanded, setExpanded] = useState(false);
   const [iconName, setIconName] = useState('angle-down');
-  const { reviews, loading, error } = useProductReviews({ product });
+  const { reviews, loading } = useProductReviews({ product });
 
   useEffect(() => {
     setIconName(expanded ? 'angle-up' : 'angle-down');

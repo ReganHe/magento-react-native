@@ -2,45 +2,29 @@
  * @flow
  * Created by Dima Portenko on 25.05.2020
  */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { magento } from '../magento';
 import * as types from '../actions/types';
 import { Alert } from 'react-native';
 import { logError } from '../helper/logger';
 
-type Props = {
-
-};
+type Props = {};
 
 type Result = {
-  reviews: {
-
-  },
-  loading: boolean
+  reviews: {},
+  loading: boolean,
 };
 
 export const useProductReviewsForm = (props: Props): Result => {
-  const [loading, setLoading] = useState(false)
-  const [postReviewLoading, setPostReviewLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [postReviewLoading, setPostReviewLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const ratingOptions = useSelector(({ product }) => product.ratingOptions);
   const dispatch = useDispatch();
 
-  const getAvailableRatings = async () => {
-    try {
-      setLoading(true)
-      const optionsResult = await magento.admin.getRatingOptions();
-      dispatch({ type: types.MAGENTO_PRODUCT_RATING_OPTIONS, payload: optionsResult });
-    } catch (error) {
-      setError(error);
-      logError(error);
-    }
-    setLoading(false)
-  };
-
-  const postReview = async (review) => {
+  const postReview = async review => {
     try {
       setPostReviewLoading(true);
       let result;
@@ -56,25 +40,38 @@ export const useProductReviewsForm = (props: Props): Result => {
         success = true;
       } else if (result && result.length && result[0].message) {
         success = result[0].status;
-
       }
 
       if (!success) {
-        Alert.alert( 'Fail', result[0].message);
-      } else if(props.onSuccess) {
+        Alert.alert('Fail', result[0].message);
+      } else if (props.onSuccess) {
         props.onSuccess();
       }
-
-    } catch (error) {
-      logError(error);
-      Alert.alert('Fail', error.message || 'Post review fail!');
+    } catch (err) {
+      logError(err);
+      Alert.alert('Fail', err.message || 'Post review fail!');
     }
     setPostReviewLoading(false);
-  }
+  };
 
   useEffect(() => {
-    getAvailableRatings()
-  }, []);
+    const getAvailableRatings = async () => {
+      try {
+        setLoading(true);
+        const optionsResult = await magento.admin.getRatingOptions();
+        dispatch({
+          type: types.MAGENTO_PRODUCT_RATING_OPTIONS,
+          payload: optionsResult,
+        });
+      } catch (err) {
+        setError(err);
+        logError(err);
+      }
+
+      setLoading(false);
+    };
+    getAvailableRatings();
+  }, [dispatch]);
 
   return {
     error,

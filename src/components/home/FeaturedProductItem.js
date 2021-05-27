@@ -6,7 +6,6 @@ import { Text, Price } from '../common';
 import { getProductThumbnailFromAttribute } from '../../helper/product';
 import { ThemeContext } from '../../theme';
 import { finalPrice } from '../../helper/price';
-import { useSelector } from 'react-redux';
 
 const FeaturedProductItem = ({
   onPress,

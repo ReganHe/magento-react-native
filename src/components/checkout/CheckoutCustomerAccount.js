@@ -57,7 +57,6 @@ class CheckoutCustomerAccount extends Component {
   onNextPressed = () => {
     const {
       email,
-      password,
       postcode,
       countryId,
       firstname,
@@ -68,29 +67,6 @@ class CheckoutCustomerAccount extends Component {
       region,
       cartId,
     } = this.props;
-
-    const customer = {
-      customer: {
-        email,
-        firstname,
-        lastname,
-        addresses: [
-          {
-            defaultShipping: true,
-            defaultBilling: true,
-            firstname,
-            lastname,
-            region,
-            postcode,
-            street: [street],
-            city,
-            telephone,
-            countryId,
-          },
-        ],
-      },
-      password,
-    };
 
     const regionValue =
       typeof region === 'object'
@@ -222,7 +198,7 @@ class CheckoutCustomerAccount extends Component {
   }
 
   renderCountries() {
-    const { countries, countryId } = this.props;
+    const { countries } = this.props;
 
     if (!countries || !countries.length) {
       return (

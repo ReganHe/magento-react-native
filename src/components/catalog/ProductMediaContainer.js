@@ -7,7 +7,7 @@ import ProductMedia from './ProductMedia';
 import { getProductMedia } from '../../actions';
 
 export const ProductMediaContainer = ({ product, selectedProductSku }) => {
-  const current = useSelector(({ product }) => product.current);
+  const current = useSelector(state => state.product.current);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export const ProductMediaContainer = ({ product, selectedProductSku }) => {
     if (!medias || !medias[product.sku]) {
       dispatch(getProductMedia({ sku: product.sku, id: product.id }));
     }
-  }, []); // eslint-disable-line
+  }, [current, dispatch, product.id, product.sku]);
 
   const { medias } = current[product.id];
   if (!medias) {

@@ -1,4 +1,4 @@
-import React, { Component, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
@@ -66,7 +66,7 @@ const DrawerScreen = props => {
           placeholder={translate('common.min')}
           value={minValue}
           keyboardType="numeric"
-          onChangeText={minValue => setMinValue(minValue)}
+          onChangeText={val => setMinValue(val)}
         />
         <Text style={dashTextStyle(theme)}>-</Text>
         <Input
@@ -74,7 +74,7 @@ const DrawerScreen = props => {
           value={maxValue}
           placeholder={translate('common.max')}
           keyboardType="numeric"
-          onChangeText={maxValue => setMaxValue(maxValue)}
+          onChangeText={val => setMaxValue(val)}
         />
       </View>
       <View style={styles.buttonStyleWrap}>

@@ -48,10 +48,8 @@ export const ProductScreen = props => {
     if (product.type_id === 'configurable') {
       dispatch(getConfigurableProductOptions(product.sku, product.id));
     }
-    dispatch(
-      getCustomOptions(product.sku, product.id),
-    ); /*The custom options are available on all product types. */
-  }, []); // eslint-disable-line
+    dispatch(getCustomOptions(product.sku, product.id));
+  }, [dispatch, product.id, product.sku, product.type_id]);
 
   useEffect(() => {
     setCurProduct(current[product.id]);

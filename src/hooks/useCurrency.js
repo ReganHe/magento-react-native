@@ -7,14 +7,14 @@ export const useCurrency = props => {
   const { currencyRate, currencySymbol } = useSelector(state => {
     const {
       currency: {
-        displayCurrencySymbol: currencySymbol,
-        displayCurrencyExchangeRate: currencyRate,
+        displayCurrencySymbol: currencySymbolValue,
+        displayCurrencyExchangeRate: currencyRateValue,
       },
     } = state.magento;
 
     return {
-      currencyRate,
-      currencySymbol,
+      currencyRate: currencyRateValue,
+      currencySymbol: currencySymbolValue,
     };
   });
 

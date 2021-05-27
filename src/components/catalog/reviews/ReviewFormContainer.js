@@ -2,7 +2,7 @@
  * @flow
  * Created by Dima Portenko on 25.05.2020
  */
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Row, Spacer } from 'react-native-markup-kit';
 import { Icon } from 'react-native-elements';
@@ -66,8 +66,8 @@ export const ReviewFormContainer = ({ product }) => {
       detail: data.detail,
       ratingData,
     };
-    postReview(review, success => {
-      if (success) {
+    postReview(review, res => {
+      if (res) {
         reviewFormRefs.current.reset();
       }
     });

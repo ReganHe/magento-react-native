@@ -1,9 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import {
-  View,
-  StatusBar,
-  StyleSheet,
-} from 'react-native';
+import { View, StatusBar, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Spinner } from '../common';
 import {
@@ -14,29 +10,29 @@ import { magento } from '../../magento';
 import { logError } from '../../helper/logger';
 import { ThemeContext } from '../../theme';
 
-const AuthLoading = (props) => {
+const AuthLoading = props => {
   const theme = useContext(ThemeContext);
 
   useEffect(() => {
+    const bootstrapAsync = async () => {
+      try {
+        const customerToken = await AsyncStorage.getItem('customerToken');
+        magento.setCustomerToken(customerToken);
+
+        props.navigation.navigate(
+          customerToken
+            ? NAVIGATION_ACCOUNT_STACK_PATH
+            : NAVIGATION_LOGIN_STACK_PATH,
+        );
+      } catch (e) {
+        logError(e);
+        // TODO: add error screen via switch navigation
+        props.navigation.navigate(NAVIGATION_LOGIN_STACK_PATH);
+      }
+    };
+
     bootstrapAsync();
-  }, []);
-
-  const bootstrapAsync = async () => {
-    try {
-      const customerToken = await AsyncStorage.getItem('customerToken');
-      magento.setCustomerToken(customerToken);
-
-      props.navigation.navigate(
-        customerToken
-          ? NAVIGATION_ACCOUNT_STACK_PATH
-          : NAVIGATION_LOGIN_STACK_PATH,
-      );
-    } catch (e) {
-      logError(e);
-      // TODO: add error screen via switch navigation
-      props.navigation.navigate(NAVIGATION_LOGIN_STACK_PATH);
-    }
-  };
+  }, [props.navigation]);
 
   return (
     <View style={styles.container(theme)}>
@@ -44,7 +40,7 @@ const AuthLoading = (props) => {
       <StatusBar barStyle="default" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: theme => ({

@@ -27,7 +27,7 @@ class CheckoutPaymentMethod extends Component {
   }
 
   onNextPressed = () => {
-    const { cartId, selectedPayment } = this.props;
+    const { cartId } = this.props;
     this.props.checkoutCustomerNextLoading(true);
     this.props.getGuestCartPaymentMethods(cartId);
   };
@@ -63,7 +63,7 @@ class CheckoutPaymentMethod extends Component {
 
   renderButton() {
     const theme = this.context;
-    const { payments, checkout } = this.props;
+    const { payments } = this.props;
     if (!payments.length) {
       return <View />;
     }

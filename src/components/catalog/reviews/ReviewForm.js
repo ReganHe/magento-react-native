@@ -71,7 +71,7 @@ const ReviewForm = forwardRef((props, ref) => {
 
   const onSubmit = () => {
     if (!nickname.length || !summary.length || !review.length) {
-      alert('Please fill all required fields');
+      // alert('Please fill all required fields');
     } else {
       props.onSubmit(
         {

@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  createSwitchNavigator,
-  createAppContainer,
-} from 'react-navigation';
-import { createStackNavigator, StackViewTransitionConfigs } from 'react-navigation-stack';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { DrawerActions } from 'react-navigation-drawer';
@@ -25,7 +22,6 @@ import OrdersScreen from '../components/account/OrdersScreen';
 import OrderScreen from '../components/account/OrderScreen';
 import AddressScreen from '../components/account/AddressScreen';
 import DrawerScreen from '../components/catalog/DrawerScreen';
-
 
 import CartBadge from '../components/cart/CartBadge';
 
@@ -58,22 +54,28 @@ const HomeStack = createStackNavigator(
   },
 );
 
-const AuthStack = createStackNavigator({
-  [routes.NAVIGATION_LOGIN_PATH]: Login,
-  [routes.NAVIGATION_SIGNIN_PATH]: Signin,
-  [routes.NAVIGATION_RESET_PASSWORD_PATH]: PasswordReset,
-}, {
-  navigationOptions: defaultHeader,
-});
+const AuthStack = createStackNavigator(
+  {
+    [routes.NAVIGATION_LOGIN_PATH]: Login,
+    [routes.NAVIGATION_SIGNIN_PATH]: Signin,
+    [routes.NAVIGATION_RESET_PASSWORD_PATH]: PasswordReset,
+  },
+  {
+    navigationOptions: defaultHeader,
+  },
+);
 
-const AccountStack = createStackNavigator({
-  [routes.NAVIGATION_ACCOUNT_PATH]: Account,
-  [routes.NAVIGATION_ORDERS_PATH]: OrdersScreen,
-  [routes.NAVIGATION_ORDER_PATH]: OrderScreen,
-  [routes.NAVIGATION_ADDRESS_SCREEN_PATH]: AddressScreen,
-}, {
-  navigationOptions: defaultHeader,
-});
+const AccountStack = createStackNavigator(
+  {
+    [routes.NAVIGATION_ACCOUNT_PATH]: Account,
+    [routes.NAVIGATION_ORDERS_PATH]: OrdersScreen,
+    [routes.NAVIGATION_ORDER_PATH]: OrderScreen,
+    [routes.NAVIGATION_ADDRESS_SCREEN_PATH]: AddressScreen,
+  },
+  {
+    navigationOptions: defaultHeader,
+  },
+);
 
 const AccountSwitch = createSwitchNavigator({
   [routes.NAVIGATION_AUTH_LOADING_SWITCH]: AuthLoading,
@@ -81,37 +83,49 @@ const AccountSwitch = createSwitchNavigator({
   [routes.NAVIGATION_ACCOUNT_STACK_PATH]: AccountStack,
 });
 
-const SearchStack = createStackNavigator({
-  [routes.NAVIGATION_SEARCH_SCREEN_PATH]: SearchScreen,
-  [routes.NAVIGATION_SEARCH_PRODUCT_PATH]: ProductScreen,
-}, {
-  navigationOptions: defaultHeader,
-});
+const SearchStack = createStackNavigator(
+  {
+    [routes.NAVIGATION_SEARCH_SCREEN_PATH]: SearchScreen,
+    [routes.NAVIGATION_SEARCH_PRODUCT_PATH]: ProductScreen,
+  },
+  {
+    navigationOptions: defaultHeader,
+  },
+);
 
-const CartStack = createStackNavigator({
-  [routes.NAVIGATION_CART_PATH]: Cart,
-}, {
-  navigationOptions: defaultHeader,
-});
+const CartStack = createStackNavigator(
+  {
+    [routes.NAVIGATION_CART_PATH]: Cart,
+  },
+  {
+    navigationOptions: defaultHeader,
+  },
+);
 
 const MainAppNavigator = createBottomTabNavigator(
   {
     [routes.NAVIGATION_HOME_STACK_PATH]: {
       screen: HomeStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-home" type="ionicon" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-home" type="ionicon" color={tintColor} />
+        ),
       }),
     },
     [routes.NAVIGATION_SEARCH_SCREEN_PATH]: {
       screen: SearchStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-search" type="ionicon" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-search" type="ionicon" color={tintColor} />
+        ),
       }),
     },
     [routes.NAVIGATION_AUTH_STACK_PATH]: {
       screen: AccountSwitch,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-person" type="ionicon" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-person" type="ionicon" color={tintColor} />
+        ),
       }),
     },
     [routes.NAVIGATION_CART_PATH]: {
@@ -133,17 +147,20 @@ const MainAppNavigator = createBottomTabNavigator(
   },
 );
 
-const Drawer = createDrawerNavigator({
-  [routes.BOTTOM_TAB_NAVIGATOR]: {
-    screen: MainAppNavigator,
+const Drawer = createDrawerNavigator(
+  {
+    [routes.BOTTOM_TAB_NAVIGATOR]: {
+      screen: MainAppNavigator,
+    },
+    [routes.NAVIGATION_DRAWER_SCREEN]: {
+      screen: DrawerScreen,
+      navigationOptions: { header: null },
+    },
   },
-  [routes.NAVIGATION_DRAWER_SCREEN]: {
-    screen: DrawerScreen,
-    navigationOptions: { header: null },
+  {
+    contentComponent: CategoryTree,
   },
-}, {
-  contentComponent: CategoryTree,
-});
+);
 
 const DrawerNavigator = createDrawerNavigator(
   {
@@ -157,14 +174,17 @@ const DrawerNavigator = createDrawerNavigator(
   },
 );
 
-const Nav = createStackNavigator({
-  [routes.NAVIGATION_DRAWER_NAVIGATOR]: {
-    screen: DrawerNavigator,
-    navigationOptions: { header: null },
+const Nav = createStackNavigator(
+  {
+    [routes.NAVIGATION_DRAWER_NAVIGATOR]: {
+      screen: DrawerNavigator,
+      navigationOptions: { header: null },
+    },
+    [routes.NAVIGATION_CHECKOUT_PATH]: Checkout,
   },
-  [routes.NAVIGATION_CHECKOUT_PATH]: Checkout,
-}, {
-  headerBackTitleVisible: false,
-});
+  {
+    headerBackTitleVisible: false,
+  },
+);
 
 export const Navigator = createAppContainer(Nav);

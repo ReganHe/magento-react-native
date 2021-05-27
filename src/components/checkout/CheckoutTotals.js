@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Alert, View, StyleSheet, TextInput, Dimensions } from 'react-native';
-import { StackActions, NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import {
   checkoutSelectedPaymentChanged,
@@ -17,7 +16,7 @@ import { Button, Spinner, Text, Price } from '../common';
 import { ThemeContext } from '../../theme';
 import { translate } from '../../i18n';
 import { priceSignByCode } from '../../helper/price';
-import { Row, Spacer } from 'react-native-markup-kit';
+import { Spacer } from 'react-native-markup-kit';
 
 class CheckoutTotals extends Component {
   static contextType = ThemeContext;
@@ -143,31 +142,35 @@ class CheckoutTotals extends Component {
   }
 
   componentDidMount() {
-    if (this.props?.totals?.coupon_code) {
-      this.setState({
-        couponCodeInput: this.props?.totals?.coupon_code,
-      });
-    }
+    (() => {
+      if (this.props?.totals?.coupon_code) {
+        this.setState({
+          couponCodeInput: this.props?.totals?.coupon_code,
+        });
+      }
+    })();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.orderId && this.props.orderId !== prevProps.orderId) {
-      this.showPopup(
-        translate('common.order'),
-        translate('checkout.orderSuccessMessage'),
-      );
-    }
-    if (
-      this.props.errorMessage &&
-      this.props.errorMessage !== prevProps.errorMessage
-    ) {
-      this.showPopup(translate('errors.error'), this.props.errorMessage);
-    }
-    if (this.props?.totals?.coupon_code !== prevProps?.totals?.coupon_code) {
-      this.setState({
-        couponCodeInput: this.props?.totals?.coupon_code,
-      });
-    }
+    (() => {
+      if (this.props.orderId && this.props.orderId !== prevProps.orderId) {
+        this.showPopup(
+          translate('common.order'),
+          translate('checkout.orderSuccessMessage'),
+        );
+      }
+      if (
+        this.props.errorMessage &&
+        this.props.errorMessage !== prevProps.errorMessage
+      ) {
+        this.showPopup(translate('errors.error'), this.props.errorMessage);
+      }
+      if (this.props?.totals?.coupon_code !== prevProps?.totals?.coupon_code) {
+        this.setState({
+          couponCodeInput: this.props?.totals?.coupon_code,
+        });
+      }
+    })();
   }
 
   showPopup(title, message) {

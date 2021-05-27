@@ -8,6 +8,7 @@ module.exports = {
     'object-curly-spacing': [
       "error", "always", { "objectsInObjects": true }
     ],
-    "react/prop-types": 1
+    "react/prop-types": 0,
+    "react-native/no-inline-styles":0
   }
 };
