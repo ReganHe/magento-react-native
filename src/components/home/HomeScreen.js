@@ -19,7 +19,8 @@ class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: translate('home.title'),
     headerBackTitle: ' ',
-    headerLeft: (
+    headerLeft: <CurrencyPicker />,
+    headerRight: (
       <MaterialHeaderButtons>
         <Item
           title="menu"
@@ -28,7 +29,6 @@ class HomeScreen extends Component {
         />
       </MaterialHeaderButtons>
     ),
-    headerRight: <CurrencyPicker />,
   });
 
   componentDidMount() {

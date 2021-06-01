@@ -162,6 +162,7 @@ const Drawer = createDrawerNavigator(
     },
   },
   {
+    drawerPosition: 'right',
     contentComponent: CategoryTree,
   },
 );
