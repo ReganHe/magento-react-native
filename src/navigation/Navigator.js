@@ -107,14 +107,23 @@ const MainAppNavigator = createBottomTabNavigator(
     [routes.NAVIGATION_HOME_STACK_PATH]: {
       screen: HomeStack,
       navigationOptions: () => ({
+        title: '首页',
         tabBarIcon: ({ tintColor }) => (
           <Icon name="md-home" type="ionicon" color={tintColor} />
         ),
       }),
     },
+    [routes.NAVIGATION_CART_PATH]: {
+      screen: CartStack,
+      navigationOptions: () => ({
+        title: '订单',
+        tabBarIcon: ({ tintColor }) => <CartBadge color={tintColor} />,
+      }),
+    },
     [routes.NAVIGATION_SEARCH_SCREEN_PATH]: {
       screen: SearchStack,
       navigationOptions: () => ({
+        title: '消息',
         tabBarIcon: ({ tintColor }) => (
           <Icon name="md-search" type="ionicon" color={tintColor} />
         ),
@@ -123,22 +132,17 @@ const MainAppNavigator = createBottomTabNavigator(
     [routes.NAVIGATION_AUTH_STACK_PATH]: {
       screen: AccountSwitch,
       navigationOptions: () => ({
+        title: '我的',
         tabBarIcon: ({ tintColor }) => (
           <Icon name="md-person" type="ionicon" color={tintColor} />
         ),
-      }),
-    },
-    [routes.NAVIGATION_CART_PATH]: {
-      screen: CartStack,
-      navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <CartBadge color={tintColor} />,
       }),
     },
   },
   {
     // initialRouteName: NAVIGATION_AUTH_STACK_PATH,
     tabBarOptions: {
-      showLabel: false,
+      showLabel: true,
       activeTintColor: theme.colors.secondary,
       inactiveTintColor: theme.colors.tabBarIconInactive,
       activeBackgroundColor: theme.colors.tabBarBackground,
