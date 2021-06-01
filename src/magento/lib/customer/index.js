@@ -2,10 +2,10 @@ import { CUSTOMER_TYPE } from '../../types';
 
 export default magento => ({
   getCurrentCustomer: () =>
-    magento.get('/V1/customers/me', undefined, undefined, CUSTOMER_TYPE),
+    magento.get('/V1/customers/me', undefined, CUSTOMER_TYPE),
 
   getCustomerCart: () =>
-    magento.get('/V1/carts/mine', undefined, undefined, CUSTOMER_TYPE),
+    magento.get('/V1/carts/mine', undefined, CUSTOMER_TYPE),
 
   createCart: customerId =>
     magento.post(`/V1/customers/${customerId}/carts`, undefined, CUSTOMER_TYPE),
@@ -30,17 +30,11 @@ export default magento => ({
     magento.get(
       '/V1/carts/mine/estimate-shipping-methods',
       undefined,
-      undefined,
       CUSTOMER_TYPE,
     ),
 
   getCartPaymentMethods: () =>
-    magento.get(
-      '/V1/carts/mine/payment-methods',
-      undefined,
-      undefined,
-      CUSTOMER_TYPE,
-    ),
+    magento.get('/V1/carts/mine/payment-methods', undefined, CUSTOMER_TYPE),
 
   placeCartOrder: payment =>
     magento.put('/V1/carts/mine/order', payment, CUSTOMER_TYPE),

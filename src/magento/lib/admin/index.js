@@ -29,7 +29,7 @@ const getSortDirection = sortOrder => {
 
 export default magento => ({
   getStoreConfig: () =>
-    magento.get('/V1/store/storeConfigs', undefined, undefined, ADMIN_TYPE),
+    magento.get('/V1/store/storeConfigs', undefined, ADMIN_TYPE),
 
   updateCustomerData: (id, customer) =>
     magento.put(`/V1/customers/${id}`, customer, undefined, ADMIN_TYPE),
@@ -46,18 +46,15 @@ export default magento => ({
     magento.delete(`/V1/carts/${cartId}/coupons`, undefined, ADMIN_TYPE),
 
   getCartTotals: cartId =>
-    magento.get(`/V1/carts/${cartId}/totals`, undefined, undefined, ADMIN_TYPE),
+    magento.get(`/V1/carts/${cartId}/totals`, undefined, ADMIN_TYPE),
 
-  getCategoriesTree: () =>
-    magento.get('/V1/categories', undefined, undefined, ADMIN_TYPE),
+  getCategoriesTree: () => magento.get('/V1/categories', undefined, ADMIN_TYPE),
 
-  getCategory: id =>
-    magento.get(`/V1/categories/${id}`, undefined, undefined, ADMIN_TYPE),
+  getCategory: id => magento.get(`/V1/categories/${id}`, undefined, ADMIN_TYPE),
 
   getCategoryAttributes: attributeCode =>
     magento.get(
       `/V1/categories/attributes/${attributeCode}`,
-      undefined,
       undefined,
       ADMIN_TYPE,
     ),
@@ -73,7 +70,7 @@ export default magento => ({
       'searchCriteria[currentPage]': 1,
     };
 
-    return magento.get(path, params, undefined, ADMIN_TYPE);
+    return magento.get(path, params, ADMIN_TYPE);
   },
 
   /**
@@ -249,34 +246,28 @@ export default magento => ({
 
   getProductsBy: searchCriteria => {
     const params = getParamsFromSearchCriterias(searchCriteria);
-    return magento.get('/V1/products', params, undefined, ADMIN_TYPE);
+    return magento.get('/V1/products', params, ADMIN_TYPE);
   },
 
   getProductsWithSearchCritaria: searchCriteria =>
-    magento.get('/V1/products', searchCriteria, undefined, ADMIN_TYPE),
+    magento.get('/V1/products', searchCriteria, ADMIN_TYPE),
 
   getProductBySku: sku =>
-    magento.get(`/V1/products/${sku}`, undefined, undefined, ADMIN_TYPE),
+    magento.get(`/V1/products/${sku}`, undefined, ADMIN_TYPE),
 
   getProductOptions: sku =>
-    magento.get(
-      `/V1/products/${sku}/options`,
-      undefined,
-      undefined,
-      ADMIN_TYPE,
-    ),
+    magento.get(`/V1/products/${sku}/options`, undefined, ADMIN_TYPE),
 
   getFeaturedChildren: ({ page, pageSize = 10, filter }) => {
     let path = '/V1/products?';
     path += magento.makeParams({ page, pageSize, filter });
     console.log('PATH:', path);
-    return magento.get(path, undefined, undefined, ADMIN_TYPE);
+    return magento.get(path, undefined, ADMIN_TYPE);
   },
 
   getConfigurableChildren: sku =>
     magento.get(
       `/V1/configurable-products/${sku}/children`,
-      undefined,
       undefined,
       ADMIN_TYPE,
     ),
@@ -285,14 +276,12 @@ export default magento => ({
     magento.get(
       `/V1/configurable-products/${sku}/options/all`,
       undefined,
-      undefined,
       ADMIN_TYPE,
     ),
 
   getConfigurableProductOptionById: (sku, id) =>
     magento.get(
       `/V1/configurable-products/${sku}/options/${id}`,
-      undefined,
       undefined,
       ADMIN_TYPE,
     ),
@@ -301,7 +290,6 @@ export default magento => ({
     magento.get(
       `/V1/products/attributes/${attributeId}/options`,
       undefined,
-      undefined,
       ADMIN_TYPE,
     ),
 
@@ -309,18 +297,16 @@ export default magento => ({
     magento.get(
       `/V1/products/attributes/${attributeCode}`,
       undefined,
-      undefined,
       ADMIN_TYPE,
     ),
 
   getProductMedia: sku =>
-    magento.get(`/V1/products/${sku}/media`, undefined, undefined, ADMIN_TYPE),
+    magento.get(`/V1/products/${sku}/media`, undefined, ADMIN_TYPE),
 
   getCart: customerId =>
     magento.post(`/V1/customers/${customerId}/carts`, undefined, ADMIN_TYPE),
 
-  getCmsBlock: id =>
-    magento.get(`/V1/cmsBlock/${id}`, undefined, undefined, ADMIN_TYPE),
+  getCmsBlock: id => magento.get(`/V1/cmsBlock/${id}`, undefined, ADMIN_TYPE),
 
   removeItemFromCart: (cartId, itemId) =>
     magento.delete(
@@ -337,29 +323,18 @@ export default magento => ({
       'searchCriteria[filterGroups][0][filters][0][field]': 'customer_id',
       'searchCriteria[filterGroups][0][filters][0][value]': customerId,
     };
-    return magento.get(path, params, undefined, ADMIN_TYPE);
+    return magento.get(path, params, ADMIN_TYPE);
   },
 
   getLinkedProducts: (sku, type) =>
-    magento.get(
-      `/V1/products/${sku}/links/${type}`,
-      undefined,
-      undefined,
-      ADMIN_TYPE,
-    ),
+    magento.get(`/V1/products/${sku}/links/${type}`, undefined, ADMIN_TYPE),
 
   getProductReviews: productId =>
-    magento.get(
-      `/V1/mma/review/reviews/${productId}`,
-      undefined,
-      undefined,
-      ADMIN_TYPE,
-    ),
+    magento.get(`/V1/mma/review/reviews/${productId}`, undefined, ADMIN_TYPE),
 
   getRatingOptions: () =>
     magento.get(
       `/V1/mma/rating/ratings/${magento.storeConfig?.id}`,
-      undefined,
       undefined,
       ADMIN_TYPE,
     ),

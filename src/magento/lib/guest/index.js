@@ -7,7 +7,7 @@ export default magento => ({
     magento.post(`/V1/guest-carts/${cartId}/items`, item, GUEST_TYPE),
 
   getGuestCart: cartId =>
-    magento.get(`/V1/guest-carts/${cartId}`, undefined, undefined, GUEST_TYPE),
+    magento.get(`/V1/guest-carts/${cartId}`, undefined, GUEST_TYPE),
 
   addCouponToCart: (cartId, couponCode) =>
     magento.put(
@@ -21,12 +21,7 @@ export default magento => ({
     magento.delete(`/V1/guest-carts/${cartId}/coupons`, undefined, GUEST_TYPE),
 
   getCartTotals: cartId =>
-    magento.get(
-      `/V1/guest-carts/${cartId}/totals`,
-      undefined,
-      undefined,
-      GUEST_TYPE,
-    ),
+    magento.get(`/V1/guest-carts/${cartId}/totals`, undefined, GUEST_TYPE),
 
   addGuestCartBillingAddress: (cartId, address) =>
     magento.post(
@@ -53,14 +48,12 @@ export default magento => ({
     magento.get(
       `/V1/guest-carts/${cartId}/payment-information`,
       undefined,
-      undefined,
       GUEST_TYPE,
     ),
 
   getGuestCartPaymentMethods: cartId =>
     magento.get(
       `/V1/guest-carts/${cartId}/payment-methods`,
-      undefined,
       undefined,
       GUEST_TYPE,
     ),
@@ -69,7 +62,6 @@ export default magento => ({
     magento.get(
       `/V1/guest-carts/${cartId}/shipping-methods`,
       undefined,
-      undefined,
       GUEST_TYPE,
     ),
 
@@ -77,15 +69,10 @@ export default magento => ({
     magento.put(`/V1/guest-carts/${cartId}/order`, payment, GUEST_TYPE),
 
   getCountries: () =>
-    magento.get('/V1/directory/countries', undefined, undefined, GUEST_TYPE),
+    magento.get('/V1/directory/countries', undefined, GUEST_TYPE),
 
   getCountriesByCountryId: countryId =>
-    magento.get(
-      `/V1/directory/countries/${countryId}`,
-      undefined,
-      undefined,
-      GUEST_TYPE,
-    ),
+    magento.get(`/V1/directory/countries/${countryId}`, undefined, GUEST_TYPE),
 
   createCustomer: customer =>
     magento.post('/V1/customers', customer, GUEST_TYPE),
@@ -111,5 +98,5 @@ export default magento => ({
   },
 
   getCurrency: () =>
-    magento.get('/V1/directory/currency', undefined, undefined, GUEST_TYPE),
+    magento.get('/V1/directory/currency', undefined, GUEST_TYPE),
 });
