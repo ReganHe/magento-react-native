@@ -122,7 +122,7 @@ export const ProductScreen = props => {
           <Text bold type="subheading" style={styles.productDetailTitle}>
             {translate('product.productDetailLabel')}
           </Text>
-          <HTML html={description} />
+          <HTML source={{ html: description }} />
         </View>
       ) : (
         <Text style={styles.descriptionStyle}>
