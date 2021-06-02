@@ -7,19 +7,17 @@ import { MaterialHeaderButtons, Text, Item } from '../common';
 import { NAVIGATION_HOME_PRODUCT_PATH } from '../../navigation/routes';
 import { getHomeData, setCurrentProduct } from '../../actions';
 import HomeSlider from './HomeSlider';
-import CurrencyPicker from './CurrencyPicker';
 import FeaturedProducts from './FeaturedProducts';
 import NavigationService from '../../navigation/NavigationService';
 import { ThemeContext } from '../../theme';
-import { translate } from '../../i18n';
+// import { translate } from '../../i18n';
 
 class HomeScreen extends Component {
   static contextType = ThemeContext;
 
   static navigationOptions = ({ navigation }) => ({
-    title: translate('home.title'),
     headerBackTitle: ' ',
-    headerLeft: <CurrencyPicker />,
+    // headerLeft: translate('home.title'),
     headerRight: (
       <MaterialHeaderButtons>
         <Item
